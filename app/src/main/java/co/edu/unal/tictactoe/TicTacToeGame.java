@@ -61,6 +61,10 @@ public class TicTacToeGame {
         }
     }
 
+    public char getBoardOccupant(int location) {
+        return mBoard[location];
+    }
+
 
     // Check for a winner.  Return
     //  0 if no winner or tie yet

@@ -6,91 +6,11 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
 
-    <TableLayout
-        android:id="@+id/play_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp">
-
-        <TableRow
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/one"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/two"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/three"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/four"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/five"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/six"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/seven"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/eight"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-            <Button
-                android:id="@+id/nine"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:text=""
-                android:textSize="40sp" />
-
-        </TableRow>
-
-    </TableLayout>
+    <co.edu.unal.tictactoe.BoardView
+        android:id="@+id/board"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="90dp" />
 
     <TextView
         android:id="@+id/information"
