@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.content.SharedPreferences;
 
 
 
@@ -49,6 +50,8 @@ public class AndroidTicTacToeActivity extends Activity {
 
     private boolean mHumanTurn = true;
 
+    private SharedPreferences mPrefs;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -65,8 +68,19 @@ public class AndroidTicTacToeActivity extends Activity {
         } else if (item.getItemId() == R.id.difficulty) {
             showDialog(DIALOG_DIFFICULTY_ID);
             return true;
-        } else if (item.getItemId() == R.id.quit) {
-            showDialog(DIALOG_QUIT_ID);
+        } else if (item.getItemId() == R.id.reset_scores) {
+            mHumanWins = 0;
+            mAndroidWins = 0;
+            mTies = 0;
+
+            updateScore();
+
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putInt("mHumanWins", 0);
+            editor.putInt("mAndroidWins", 0);
+            editor.putInt("mTies", 0);
+            editor.apply();
+
             return true;
         } else if (item.getItemId() == R.id.about) {
             showDialog(DIALOG_ABOUT_ID);
@@ -91,6 +105,14 @@ public class AndroidTicTacToeActivity extends Activity {
                                         mGame.setDifficultyLevel(
                                                 TicTacToeGame.DifficultyLevel.values()[which]
                                         );
+                                        SharedPreferences.Editor editor = mPrefs.edit();
+
+                                        editor.putInt(
+                                                "difficulty",
+                                                mGame.getDifficultyLevel().ordinal()
+                                        );
+
+                                        editor.apply();
                                         dialog.dismiss();
                                     }
                                 })
@@ -128,6 +150,9 @@ public class AndroidTicTacToeActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPrefs = getSharedPreferences("TicTacToePrefs", MODE_PRIVATE);
+
         setContentView(R.layout.main);
 
         mInfoTextView = findViewById(R.id.information);
@@ -138,17 +163,64 @@ public class AndroidTicTacToeActivity extends Activity {
 
         mGame = new TicTacToeGame();
 
+        int difficulty = mPrefs.getInt("difficulty", 2);
+
+        mGame.setDifficultyLevel(
+                TicTacToeGame.DifficultyLevel.values()[difficulty]
+        );
+
         mBoardView = findViewById(R.id.board);
         mBoardView.setGame(mGame);
         mBoardView.setOnTouchListener(mTouchListener);
 
-        mHumanWins = 0;
-        mAndroidWins = 0;
-        mTies = 0;
+        // Recuperar marcadores guardados permanentemente
+        mHumanWins = mPrefs.getInt("mHumanWins", 0);
+        mAndroidWins = mPrefs.getInt("mAndroidWins", 0);
+        mTies = mPrefs.getInt("mTies", 0);
+
+        if (savedInstanceState == null) {
+            startNewGame();
+        } else {
+            mGame.setBoardState(savedInstanceState.getCharArray("board"));
+            mGameOver = savedInstanceState.getBoolean("mGameOver");
+
+            mInfoTextView.setText(
+                    savedInstanceState.getCharSequence("info")
+            );
+
+            mHumanStarts = savedInstanceState.getBoolean("mHumanStarts");
+            mHumanTurn = savedInstanceState.getBoolean("mHumanTurn");
+
+            mBoardView.invalidate();
+        }
 
         updateScore();
+    }
 
-        startNewGame();
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putCharArray("board", mGame.getBoardState());
+        outState.putBoolean("mGameOver", mGameOver);
+
+        outState.putCharSequence("info", mInfoTextView.getText());
+
+        outState.putBoolean("mHumanStarts", mHumanStarts);
+        outState.putBoolean("mHumanTurn", mHumanTurn);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences.Editor editor = mPrefs.edit();
+
+        editor.putInt("mHumanWins", mHumanWins);
+        editor.putInt("mAndroidWins", mAndroidWins);
+        editor.putInt("mTies", mTies);
+
+        editor.apply();
     }
 
     private void updateScore() {

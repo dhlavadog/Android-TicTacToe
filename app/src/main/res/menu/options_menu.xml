@@ -10,8 +10,8 @@
         android:title="Difficulty" />
 
     <item
-        android:id="@+id/quit"
-        android:title="Quit" />
+        android:id="@+id/reset_scores"
+        android:title="Reset Scores" />
 
     <item
         android:id="@+id/about"

@@ -65,6 +65,16 @@ public class TicTacToeGame {
         return mBoard[location];
     }
 
+    public char[] getBoardState() {
+        return mBoard.clone();
+    }
+
+    public void setBoardState(char[] board) {
+        mBoard = board.clone();
+    }
+
+
+
 
     // Check for a winner.  Return
     //  0 if no winner or tie yet
@@ -204,6 +214,8 @@ public class TicTacToeGame {
 
         return -1;
     }
+
+
 
 
     /**
