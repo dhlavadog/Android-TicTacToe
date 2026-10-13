@@ -17,4 +17,8 @@
         android:id="@+id/about"
         android:title="About" />
 
+    <item
+        android:id="@+id/main_menu"
+        android:title="Menú principal" />
+
 </menu>

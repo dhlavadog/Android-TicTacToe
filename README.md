@@ -58,6 +58,24 @@ El jugador que comienza se alterna entre partidas nuevas.
 
 # Changelog
 
+## Reto 7 — Multijugador online y navegación entre modos
+
+* Se integró Firebase Realtime Database para implementar partidas multijugador online.
+* Se implementó la autenticación anónima de jugadores mediante Firebase Authentication.
+* Se creó un lobby para crear partidas y unirse a partidas disponibles.
+* Se implementó la sincronización del tablero, los turnos y los resultados entre dos jugadores.
+* Se implementó la validación de movimientos para evitar jugar fuera de turno o en casillas ocupadas.
+* Se creó una pantalla principal para seleccionar entre Un solo jugador y Modo online.
+* Se adaptó el menú de opciones para mostrar las funciones correspondientes a cada modo de juego.
+* Se agregó la opción Menú principal para regresar a la pantalla inicial desde las partidas individuales, las partidas online y el lobby.
+* Se adaptó la opción New Game para iniciar una nueva partida individual o regresar al lobby en el modo online.
+* Se recuperaron los efectos de sonido para los movimientos de ambos jugadores en las partidas online.
+* Se implementaron contadores independientes de victorias, derrotas y empates para el modo online.
+* Se agregó la persistencia local de las estadísticas del modo online mediante SharedPreferences.
+* Se adaptó la opción Reset Scores para reiniciar las estadísticas del modo de juego actual.
+* Se corrigieron errores de navegación entre partidas online y el lobby.
+* Se verificó el funcionamiento independiente de los modos individual y multijugador.
+
 ## Reto 6 — Cambio de orientación y conservación del estado
 
 * Se agregó soporte para orientación vertical y horizontal.
